@@ -164,16 +164,21 @@ class PredictingModel:
                 similar_proposals.append(dataframe_urls.iloc[i]['url'])
                 if len(similar_proposals) > 5:
                     break
-        print('Similar proposals:')
-        print(*similar_proposals, sep='\n')
+
+        if len(similar_proposals) > 0:
+            print('Similar proposals:')
+            print(*similar_proposals, sep='\n')
+
+        else:
+            print("Couldn't find any similar proposals.")
         print()
         return 0
 
 
 model = PredictingModel()
 
-info_for_predicting = pd.Series({'author_type': 'homeowner', 'floor': 15, 'floors_count': 30,
-                                 'rooms_count': 2, 'total_meters': 40,
-                                 'address': 'Москва, ул. Лобачевского, 120'})
+info_for_predicting = pd.Series({'author_type': 'homeowner', 'floor': 20, 'floors_count': 37,
+                                 'rooms_count': 5, 'total_meters': 120,
+                                 'address': 'Москва, ул. Лобачевского, 120', 'lat': 55.774598, 'lon': 37.545950})
 
-print("Predicted price:", model.price_predicting(info_for_predicting, False))
+print(f"Predicted price: {model.price_predicting(info_for_predicting, True)}.")
